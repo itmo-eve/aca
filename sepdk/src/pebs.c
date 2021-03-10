@@ -1205,7 +1205,7 @@ PEBS_Fill_Phy_Addr (
         }
         else if (lin_addr < __PAGE_OFFSET) {
             pagefault_disable();
-            if (__get_user_pages_fast(lin_addr, 1, 1, &page)) {
+            if (get_user_pages_fast(lin_addr, 1, 1, &page)) {
                 LATENCY_INFO_phys_addr(latency_info) = (U64)page_to_phys(page) + offset;
                 put_page(page);
             }
