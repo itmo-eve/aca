@@ -74,7 +74,7 @@ UTILITY_down_read_mm (
 {
     SEP_DRV_LOG_TRACE_IN("Mm: %p.", mm);
 
-    down_read((struct rw_semaphore *) &mm->mmap_sem);
+    mmap_read_lock(mm);
 
     SEP_DRV_LOG_TRACE_OUT("");
     return;
@@ -87,7 +87,7 @@ UTILITY_up_read_mm (
 {
     SEP_DRV_LOG_TRACE_IN("Mm: %p.", mm);
 
-    up_read((struct rw_semaphore *) &mm->mmap_sem);
+    mmap_read_unlock(mm);
 
     SEP_DRV_LOG_TRACE_OUT("");
     return;
