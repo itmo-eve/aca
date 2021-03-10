@@ -35,9 +35,7 @@
 
 #include <linux/smp.h>
 #include <linux/timer.h>
-#if defined(DRV_IA32)
 #include <asm/apic.h>
-#endif
 #include <asm/io.h>
 #if defined(DRV_IA32)
 #include <asm/msr.h>
