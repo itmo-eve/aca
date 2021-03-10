@@ -368,7 +368,7 @@ PCI_Read_From_Memory_Address (
     aligned_addr = addr & PAGE_MASK;
     SEP_DRV_LOG_TRACE("Aligned physical address: %x, offset: %x.", aligned_addr, offset);
 
-    base = ioremap_nocache(aligned_addr, PAGE_SIZE);
+    base = ioremap(aligned_addr, PAGE_SIZE);
     if (base == NULL) {
         SEP_DRV_LOG_ERROR_TRACE_OUT("OS_INVALID (mapping failed!).");
         return OS_INVALID;
@@ -420,7 +420,7 @@ PCI_Write_To_Memory_Address (
     aligned_addr = addr & PAGE_MASK;
     SEP_DRV_LOG_TRACE("Aligned physical address: %x, offset: %x (val: %x).", aligned_addr, offset, val);
 
-    base = ioremap_nocache(aligned_addr, PAGE_SIZE);
+    base = ioremap(aligned_addr, PAGE_SIZE);
     if (base == NULL) {
         SEP_DRV_LOG_ERROR_TRACE_OUT("OS_INVALID (mapping failed!).");
         return OS_INVALID;
@@ -468,7 +468,7 @@ PCI_Map_Memory (
         return OS_INVALID;
     }
 
-    res = ioremap_nocache(phy_address, map_size);
+    res = ioremap(phy_address, map_size);
     if (!res) {
         SEP_DRV_LOG_ERROR_INIT_OUT("Map operation failed!");
         return OS_INVALID;
