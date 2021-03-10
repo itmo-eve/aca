@@ -53,18 +53,10 @@
 #define  SEP_DRV_MEMSET   memset
 
 // check whether Linux driver should use unlocked ioctls (not protected by BKL)
-#if defined(HAVE_UNLOCKED_IOCTL)
 #define DRV_USE_UNLOCKED_IOCTL
-#endif
-#if defined(DRV_USE_UNLOCKED_IOCTL)
 #define IOCTL_OP .unlocked_ioctl
 #define IOCTL_OP_TYPE long
 #define IOCTL_USE_INODE
-#else
-#define IOCTL_OP .ioctl
-#define IOCTL_OP_TYPE S32
-#define IOCTL_USE_INODE struct   inode  *inode,
-#endif
 
 // Information about the state of the driver
 typedef struct GLOBAL_STATE_NODE_S  GLOBAL_STATE_NODE;
