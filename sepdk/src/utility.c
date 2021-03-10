@@ -37,7 +37,7 @@
 #include <linux/kallsyms.h>
 #include <asm/msr.h>
 #include <linux/ptrace.h>
-#include <linux/time.h>
+#include <linux/ktime.h>
 #include <linux/vmalloc.h>
 
 #include "lwpmudrv_defines.h"
@@ -864,7 +864,7 @@ UTILITY_Driver_Log_Init (
     void
 )
 {
-    struct timespec cur_time;
+    struct timespec64 cur_time;
     U32             size = sizeof(*driver_log_buffer);
     U8              using_contiguous_physical_memory;
     U32             bitness;
@@ -920,7 +920,7 @@ UTILITY_Driver_Log_Init (
     DRV_LOG_BUFFER_log_size(driver_log_buffer)            = sizeof(*driver_log_buffer);
     DRV_LOG_BUFFER_max_nb_pri_entries(driver_log_buffer)  = DRV_LOG_MAX_NB_PRI_ENTRIES;
     DRV_LOG_BUFFER_max_nb_aux_entries(driver_log_buffer)  = DRV_LOG_MAX_NB_AUX_ENTRIES;
-    getnstimeofday(&cur_time);
+    ktime_get_real_ts64(&cur_time);
     DRV_LOG_BUFFER_init_time(driver_log_buffer)           = cur_time.tv_sec;
     DRV_LOG_BUFFER_disambiguator(driver_log_buffer)       = 0;
     DRV_LOG_BUFFER_log_version(driver_log_buffer)         = DRV_LOG_VERSION;
