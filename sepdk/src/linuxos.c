@@ -1014,7 +1014,6 @@ static struct notifier_block linuxos_exit_task_nb = {
     .notifier_call = linuxos_Exit_Task_Notify,
 };
 
-#if defined(CONFIG_TRACEPOINTS)
 /* ------------------------------------------------------------------------- */
 /*!
  * @fn          void capture_sched_switch(VOID *)
@@ -1138,7 +1137,6 @@ record_pebs_process_info(struct rq *ignore, struct task_struct *from, struct tas
     SEP_DRV_LOG_NOTIFICATION_OUT("");
 }
 #endif
-#endif
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,15,0)
 /* ------------------------------------------------------------------------- */
@@ -1201,7 +1199,6 @@ install_sched_switch_callback(
     SEP_DRV_LOG_TRACE_IN("");
     SEP_DRV_LOG_INIT("Installing PEBS linux OS Hooks.");
 
-#if defined(CONFIG_TRACEPOINTS)
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,15,0)
     if (!tp_sched_switch) {
         for_each_kernel_tracepoint(&find_sched_switch_tracepoint, &tp_sched_switch);
@@ -1222,7 +1219,6 @@ install_sched_switch_callback(
     err = -1;
 #endif
     CONTROL_Invoke_Parallel(capture_sched_switch, NULL);
-#endif
 
     SEP_DRV_LOG_TRACE_OUT("Res: %d.", err);
     return err;
@@ -1305,7 +1301,6 @@ uninstall_sched_switch_callback(
     SEP_DRV_LOG_TRACE_IN("");
     SEP_DRV_LOG_INIT("Uninstalling PEBS Linux OS Hooks.");
 
-#if defined(CONFIG_TRACEPOINTS)
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,15,0)
     if (!tp_sched_switch) {
         err = -EIO;
@@ -1323,7 +1318,6 @@ uninstall_sched_switch_callback(
     err = -1;
 #endif
     CONTROL_Invoke_Parallel(capture_sched_switch, NULL);
-#endif
 
     SEP_DRV_LOG_TRACE_OUT("Res: %d.", err);
     return err;
